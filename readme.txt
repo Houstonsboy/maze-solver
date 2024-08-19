@@ -98,4 +98,29 @@ def print(self):
                 else:
                     print (" ", end="")
             print()
-        print()         
+        print() 
+        print(self.num_explored) 
+
+the neighbors get the state from the node and extract the row and col
+it has a preset of actions in candidate,  the for loop checks if an action is performed in a state, if the new coordinate is not in self.wall then it is an open space to make a move and the it is appended to the result. this shows all the possible moves available in a state
+    def neighbors(self,state):
+        row, col=state
+        #All possible actions
+        candidates=[
+            ("up", (row-1, col)),
+            ("down", (row + 1, col)),
+            ("left",( row, col -1 )),
+            ("right", (row, col+1))
+        ]   
+        #Ensure actions are valid
+        result=[]
+        for action, (r,c) in candidates:
+            try:
+                if not self.walls[r][c]:
+                    result.append((action, (r,c)))
+            except IndexError:
+                continue
+        return result 
+
+
+
